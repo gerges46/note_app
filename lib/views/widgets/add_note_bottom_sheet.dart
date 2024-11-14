@@ -12,7 +12,10 @@ class CustomBottomSheet extends StatelessWidget {
         
         children: [
           SizedBox(height: 32,),
-          CustomTextField()
+          CustomTextField(hint: 'title',),
+          SizedBox(height: 16,),
+          CustomTextField(hint: 'content',maxLine: 6,),
+
         ],
       ),
     );
