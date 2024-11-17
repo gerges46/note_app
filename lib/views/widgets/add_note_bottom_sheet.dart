@@ -21,12 +21,10 @@ class CustomBottomSheet extends StatelessWidget {
        }
         },
         builder: (context, state) {
-          return SingleChildScrollView(
-            child: ModalProgressHUD(
-              inAsyncCall: state is AddNoteLoadingState ? true:false,
-              child: AddNoteForm(),
-              ),
-          );
+          return ModalProgressHUD(
+            inAsyncCall: state is AddNoteLoadingState ? true:false,
+            child:const SingleChildScrollView(child: AddNoteForm()),
+            );
         },
       ),
     );
