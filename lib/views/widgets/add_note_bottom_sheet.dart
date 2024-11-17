@@ -19,12 +19,16 @@ class CustomBottomSheet extends StatelessWidget {
             Navigator.pop(context);
           }
         }, builder: (context, state) {
-          // AbsorbPointer if it true it block any action in screen 
+          // AbsorbPointer if it true it block any action in screen
           return AbsorbPointer(
-            absorbing: state is AddNoteLoadingState? true:false,
-            child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: SingleChildScrollView(child: AddNoteForm())),
+            absorbing: state is AddNoteLoadingState ? true : false,
+            child: Padding(
+                padding: EdgeInsets.only(
+                  left: 16,
+                  right: 16,
+                  bottom: MediaQuery.of(context).viewInsets.bottom,
+                ),
+                child: const SingleChildScrollView(child: AddNoteForm())),
           );
         }));
   }
