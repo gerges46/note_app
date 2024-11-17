@@ -73,6 +73,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
     );
   }
 } */
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubit/add_note_cubit/addnote_cubit.dart';
@@ -126,25 +127,30 @@ class _AddNoteFormState extends State<AddNoteForm> {
           const SizedBox(
             height: 24,
           ),
-          CustomButton(
-            onTap: () {
-              if (formKey.currentState != null) {
-                if (formKey.currentState!.validate()) {
-                  formKey.currentState!.save();
-                  var noteModel = NoteModel(
-                      title: title!,
-                      subtitle: subtitle!,
-                      date: DateTime.now().toString(),
-                      color: Colors.blue.value);
-                  BlocProvider.of<AddnoteCubit>(context).addNote(noteModel);
-                } else {
-                  setState(() {
-                    autovalidateMode = AutovalidateMode.always;
-                  });
-                }
-              } else {
-                print("Form key current state is null");
-              }
+          BlocBuilder<AddnoteCubit, AddNoteState>(
+            builder: (context, state) {
+              return CustomButton(
+                isloading: state is AddNoteLoadingState? true:false,
+                onTap: () {
+                  if (formKey.currentState != null) {
+                    if (formKey.currentState!.validate()) {
+                      formKey.currentState!.save();
+                      var noteModel = NoteModel(
+                          title: title!,
+                          subtitle: subtitle!,
+                          date: DateTime.now().toString(),
+                          color: Colors.blue.value);
+                      BlocProvider.of<AddnoteCubit>(context).addNote(noteModel);
+                    } else {
+                      setState(() {
+                        autovalidateMode = AutovalidateMode.always;
+                      });
+                    }
+                  } else {
+                    print("Form key current state is null");
+                  }
+                },
+              );
             },
           ),
         ],
@@ -152,4 +158,3 @@ class _AddNoteFormState extends State<AddNoteForm> {
     );
   }
 }
-
