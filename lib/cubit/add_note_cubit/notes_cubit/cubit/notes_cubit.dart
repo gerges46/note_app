@@ -10,7 +10,11 @@ part 'notes_state.dart';
 class NotesCubit extends Cubit<NotesState> {
   NotesCubit() : super(NotesInitial());
  List<NoteModel>? notes;
-static NotesCubit get(context) => BlocProvider.of(context);
+
+static NotesCubit get(BuildContext rxt) => BlocProvider.of(rxt);
+
+
+
   fetchAllNote(/* NoteModel note */) async {
   
   // i dont use try and catch becouse this is not future and i make object only i dont need it becouse it take resourse and it dont it 
