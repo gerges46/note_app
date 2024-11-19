@@ -62,7 +62,7 @@ class NoteItem extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.only(top: 24, bottom: 24, left: 16),
         decoration: BoxDecoration(
-          color:  Color(note.color),
+          color: Color(note.color),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
@@ -85,7 +85,84 @@ class NoteItem extends StatelessWidget {
               ),
               trailing: IconButton(
                 onPressed: () {
-                  // Add functionality to delete this note
+              
+             showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(16), // Rounded corners
+                        ),
+                        backgroundColor:
+                            const Color(0xFFF8F9FA), // Light background color
+                        icon: const Icon(
+                          Icons.warning_rounded,
+                          color: Colors.red,
+                          size: 48,
+                        ),
+                        title: const Text(
+                          'Delete Note?',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 22,
+                          ),
+                        ),
+                        content: const Text(
+                          'Are you sure you want to delete this note?',
+                          style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 16,
+                          ),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context); // Dismiss dialog
+                            },
+                            style: TextButton.styleFrom(
+                              backgroundColor:
+                                  Colors.green, // "No" button color
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            child: const Text(
+                              'No',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              note.delete();
+                                    Navigator.pop(context); 
+                            },
+                            style: TextButton.styleFrom(
+                              backgroundColor:
+                                  Colors.red, // "Delete" button color
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            child: const Text(
+                              'Delete',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ); 
+
+              // note.delete();
+               print("succes delete");
                 },
                 icon: const Icon(
                   FontAwesomeIcons.trash,
