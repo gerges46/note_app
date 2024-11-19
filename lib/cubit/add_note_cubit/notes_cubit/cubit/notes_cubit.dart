@@ -9,16 +9,18 @@ part 'notes_state.dart';
 
 class NotesCubit extends Cubit<NotesState> {
   NotesCubit() : super(NotesInitial());
-  fetchAllNote(NoteModel note) async {
+ List<NoteModel>? notes;
+static NotesCubit get(context) => BlocProvider.of(context);
+  fetchAllNote(/* NoteModel note */) async {
   
-    try {
+  // i dont use try and catch becouse this is not future and i make object only i dont need it becouse it take resourse and it dont it 
       var notesBox = Hive.box<NoteModel>(kNoteBox);
- 
-    List<NoteModel> notes= notesBox.values.toList();
-      emit(NotesSucess(notes));
-    } catch (e) {
-      emit(NotesFailed(e.toString()));
-
-    }
+    notes= notesBox.values.toList();
+   //   emit(NotesSucess());
+   emit(NotesSucess());
+   print("fetch done");
+   print('done');
+  
+  
   }
 }
