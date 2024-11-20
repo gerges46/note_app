@@ -10,27 +10,36 @@ class ListViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NotesCubit, NotesState>(
-
+    return BlocConsumer<NotesCubit, NotesState>(
+      listener: (context, state) {
+        if (state is NotesInitial) {
+          BlocProvider.of<NotesCubit>(context).fetchAllNote();
+        }
+      },
       builder: (context, state) {
-       if(state is NotesSucess){
-         List<NoteModel> notes=BlocProvider.of<NotesCubit>(context).notes!;
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          child: ListView.builder(
-            //  itemCount: state is NotesSucess ? state.notes.length : 0,
-            itemCount: notes.length,
-              padding: EdgeInsets.zero,
-              itemBuilder: (context, index) {
-                return  Padding(
-                  padding:const EdgeInsets.symmetric(vertical: 4),
-                  child: NoteItem(note: notes[index]),
-                );
-              }),
+        return BlocBuilder<NotesCubit, NotesState>(
+          builder: (context, state) {
+            if (state is NotesSucess) {
+              List<NoteModel> notes =
+                  BlocProvider.of<NotesCubit>(context).notes!;
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: ListView.builder(
+                    //  itemCount: state is NotesSucess ? state.notes.length : 0,
+                    itemCount: notes.length,
+                    padding: EdgeInsets.zero,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: NoteItem(note: notes[index]),
+                      );
+                    }),
+              );
+            } else {
+              throw Exception("error on fetch note ");
+            }
+          },
         );
-       }else{
-        throw Exception("error on fetch note ");
-       }
       },
     );
   }

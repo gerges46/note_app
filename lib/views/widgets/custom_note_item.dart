@@ -58,7 +58,10 @@ class NoteItem extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const EditNoteView()),
+          MaterialPageRoute(
+              builder: (context) => EditNoteView(
+                    noteModel: note,
+                  )),
         );
       },
       child: Container(
@@ -87,10 +90,8 @@ class NoteItem extends StatelessWidget {
               ),
               trailing: IconButton(
                 onPressed: () {
-                 
-
-               note.delete();
-               BlocProvider.of<NotesCubit>(context).fetchAllNote();
+                  note.delete();
+                  BlocProvider.of<NotesCubit>(context).fetchAllNote();
                   print("succes delete");
                 },
                 icon: const Icon(
@@ -115,6 +116,4 @@ class NoteItem extends StatelessWidget {
       ),
     );
   }
-
-                
-  }
+}

@@ -8,7 +8,10 @@ import 'package:note_app/model/note_model.dart';
 part 'notes_state.dart';
 
 class NotesCubit extends Cubit<NotesState> {
-  NotesCubit() : super(NotesInitial());
+  NotesCubit() : super(NotesInitial()){
+    fetchAllNote();
+  }
+
  List<NoteModel>? notes;
 
 static NotesCubit get(BuildContext rxt) => BlocProvider.of(rxt);
