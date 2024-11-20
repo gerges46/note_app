@@ -80,6 +80,7 @@ import 'package:intl/intl.dart';
 import 'package:note_app/cubit/add_note_cubit/addnote_cubit.dart';
 import 'package:note_app/model/note_model.dart';
 
+import 'color_list_view.dart';
 import 'custom_button.dart';
 import 'custom_text_field.dart';
 
@@ -115,6 +116,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
               title = value;
             },
           ),
+
           const SizedBox(
             height: 16,
           ),
@@ -124,10 +126,12 @@ class _AddNoteFormState extends State<AddNoteForm> {
             onSaved: (value) {
               subtitle = value;
             },
+
           ),
           const SizedBox(
             height: 24,
           ),
+          const ColorListView(),
           BlocBuilder<AddnoteCubit, AddNoteState>(
             builder: (context, state) {
               return CustomButton(
