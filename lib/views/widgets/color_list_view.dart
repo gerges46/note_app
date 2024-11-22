@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/constant.dart';
+import 'package:note_app/cubit/add_note_cubit/addnote_cubit.dart';
 
 class ColorItem extends StatelessWidget {
   const ColorItem({super.key, required this.isActive, required this.color});
@@ -7,7 +10,7 @@ class ColorItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return isActive
-        ?  CircleAvatar(
+        ? CircleAvatar(
             radius: 38,
             backgroundColor: Colors.white,
             child: CircleAvatar(
@@ -15,9 +18,9 @@ class ColorItem extends StatelessWidget {
               backgroundColor: color,
             ),
           )
-        :  CircleAvatar(
+        : CircleAvatar(
             radius: 38,
-            backgroundColor:color,
+            backgroundColor: color,
           );
   }
 }
@@ -31,21 +34,14 @@ class ColorListView extends StatefulWidget {
 
 class _ColorListViewState extends State<ColorListView> {
   int currentIndex = 0;
-  List<Color> colors=const[
-    Color(0xffff1053),
-    Color(0xff6c6ea0),
-    Color(0xff66C7F4),
-    Color(0xffc1cad6),
-    Color(0xffFFFFFF),
-  
-  ];
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 38 * 2,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: colors.length,
+          itemCount: kColors.length,
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -54,12 +50,14 @@ class _ColorListViewState extends State<ColorListView> {
                   // to change color he choose
                   setState(() {
                     currentIndex = index;
+                    BlocProvider.of<AddnoteCubit>(context).color =
+                        kColors[index];
                   });
                 },
                 child: ColorItem(
                   // check which one is selcet or active
                   isActive: currentIndex == index,
-                  color: colors[index],
+                  color: kColors[index],
                 ),
               ),
             );
